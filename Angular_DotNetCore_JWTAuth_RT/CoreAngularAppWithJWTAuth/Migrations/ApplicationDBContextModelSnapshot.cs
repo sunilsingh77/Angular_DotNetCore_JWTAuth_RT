@@ -80,19 +80,19 @@ namespace CoreAngularAppWithJWTAuth.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "382d7a14-9fc8-4a97-84ac-01261c73c547",
+                            Id = "a377dcf1-5c75-4d32-8954-be8895ae3eaf",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a8df9c58-6e7b-4b9d-93b8-c321d379a540",
+                            Id = "4257f04b-cc0a-4075-a732-3b5cfdfd2bee",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "4fbfd856-6c15-4f6f-aa5a-9da160fc19b8",
+                            Id = "6f0e7739-55a8-4608-8e59-cf813891fb11",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
