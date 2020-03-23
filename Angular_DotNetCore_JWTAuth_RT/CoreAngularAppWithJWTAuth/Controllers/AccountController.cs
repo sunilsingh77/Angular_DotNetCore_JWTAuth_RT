@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreAngularAppWithJWTAuth.Email;
 using CoreAngularAppWithJWTAuth.Helpers;
+using CoreAngularAppWithJWTAuth.Models;
 using CoreAngularAppWithJWTAuth.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,12 @@ namespace CoreAngularAppWithJWTAuth.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppSettings _appSettings;
         private IEmailSender _emailsender;
-        public AccountController(UserManager<IdentityUser> userManager, 
-            SignInManager<IdentityUser> signInManager, 
+        public AccountController(UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager, 
             IOptions<AppSettings> appSettings,
             IEmailSender emailsender)
         {
@@ -42,7 +43,7 @@ namespace CoreAngularAppWithJWTAuth.Controllers
         {
             var lstError = new List<string>();
 
-            var user = new IdentityUser()
+            var user = new ApplicationUser()
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),

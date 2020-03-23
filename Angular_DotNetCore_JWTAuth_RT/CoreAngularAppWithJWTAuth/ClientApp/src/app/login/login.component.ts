@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  debugger;
   insertForm: FormGroup;
   Username: FormControl;
   Password: FormControl;
@@ -29,10 +30,10 @@ export class LoginComponent implements OnInit {
     // get return URL or /
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     
-    if (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) {
-      this.router.navigate(['/']);
-      return false;
-    }
+    //if (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) {
+    //  this.router.navigate(['/']);
+    //  return false;
+    //}
     
     // Intialize formGroup by using FormBuilder
     this.insertForm = this.fb.group({

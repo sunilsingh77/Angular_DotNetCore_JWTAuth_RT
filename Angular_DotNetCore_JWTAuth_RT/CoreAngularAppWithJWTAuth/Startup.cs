@@ -49,6 +49,9 @@ namespace CoreAngularAppWithJWTAuth
                 options.AddDefaultPolicy(builder => builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build());
             });
 
+            // Token Model
+            services.AddScoped<Token>();
+
             //DB Connection
             services.AddDbContextPool<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultDBConnection")));
             
@@ -58,7 +61,7 @@ namespace CoreAngularAppWithJWTAuth
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             //Specifying using Identity Framework
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
@@ -66,6 +69,8 @@ namespace CoreAngularAppWithJWTAuth
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = true;
                 options.User.RequireUniqueEmail = true;
+                
+                // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
@@ -94,7 +99,8 @@ namespace CoreAngularAppWithJWTAuth
                     ValidateAudience = true,
                     ValidIssuer = appSettings.Site,
                     ValidAudience = appSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 

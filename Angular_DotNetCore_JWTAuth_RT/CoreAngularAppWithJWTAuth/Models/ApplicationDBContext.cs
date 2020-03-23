@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CoreAngularAppWithJWTAuth.Models
 {
-    public class ApplicationDBContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {}
@@ -22,5 +22,6 @@ namespace CoreAngularAppWithJWTAuth.Models
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Token> Tokens { get; set; }
     }
 }
