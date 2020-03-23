@@ -9,8 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  debugger;
+    
   insertForm: FormGroup;
   Username: FormControl;
   Password: FormControl;
@@ -29,12 +28,12 @@ export class LoginComponent implements OnInit {
 
     // get return URL or /
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    
-    //if (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) {
+
+    // if (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) {
     //  this.router.navigate(['/']);
     //  return false;
-    //}
-    
+    // }
+
     // Intialize formGroup by using FormBuilder
     this.insertForm = this.fb.group({
       'Username': this.Username,
@@ -42,19 +41,24 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
-    const userLogin = this.insertForm.value;
-    this.acct.login(userLogin.Username, userLogin.Password).subscribe(result => {
-      const token = (<any>result).token;
+    const userlogin = this.insertForm.value;
+
+    this.acct.login(userlogin.Username, userlogin.Password).subscribe(result => {
+      
+      const token = (<any>result).authToken.token;
       console.log(token);
-      console.log(this.returnUrl);
-      console.log('User logged-in successfully!');
-      console.log(result.userrole);
+      console.log(result.authToken.roles);
+      console.log('User Logged In Successfully');
       this.invalidLogin = false;
+      console.log(this.returnUrl);
       this.router.navigateByUrl(this.returnUrl);
+
     },
       error => {
         this.invalidLogin = true;
+
         this.ErrorMessage = error.error.loginError;
+
         console.log(this.ErrorMessage);
       });
   }

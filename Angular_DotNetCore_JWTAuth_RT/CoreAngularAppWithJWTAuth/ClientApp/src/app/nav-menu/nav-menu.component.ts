@@ -13,18 +13,12 @@ export class NavMenuComponent implements OnInit {
   constructor(private acct: AccountService, private productservice:  ProductService) { }
 
   LoginStatus$: Observable<boolean>;
+
   UserName$: Observable<string>;
 
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
 
   ngOnInit() {
-    this.LoginStatus$ = this.acct.isLoggedIn;
+    this.LoginStatus$ = this.acct.isLoggesIn;
     this.UserName$ = this.acct.currentUserName;
   }
 
