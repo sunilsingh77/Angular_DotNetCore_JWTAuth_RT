@@ -48,16 +48,22 @@ namespace CoreAngularAppWithJWTAuth.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("[action]/{id}")]
+        [HttpPut("updateproduct/{id}")]
         [Authorize(Policy = "RequiredAdministratorRole")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> UpdateProduct([FromRoute]int id, [FromBody]Product product)
         {
-            if (id != product.ProductId)
+            var objProduct = await _context.Products.FindAsync(id);
+
+            if (id != objProduct.ProductId)
             {
                 return BadRequest();
             }
+            objProduct.Description = product.Description;
+            objProduct.Price = product.Price;
+            objProduct.Name = product.Name;
+            objProduct.ImageUrl = product.ImageUrl;
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(objProduct).State = EntityState.Modified;
 
             try
             {
@@ -83,7 +89,7 @@ namespace CoreAngularAppWithJWTAuth.Controllers
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost("[action]")]
         [Authorize(Policy = "RequiredAdministratorRole")]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Product>> AddProduct(Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();

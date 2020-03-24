@@ -37,11 +37,22 @@ export class ProductService {
 
   // Insert the Product
   insertProduct(newProduct: Product): Observable<Product> {
-    return this.http.post<Product>(this.productUrl, newProduct);
+    
+    let newOne = {
+      'productId': 0,
+      'name': newProduct.name,
+      'price': Number(newProduct.price),
+      'description': newProduct.description,
+      'imageUrl': newProduct.imageUrl,
+      'outOfStock': true,
+    };
+
+    //let pro = <Product>(newOne);
+    return this.http.post<Product>(this.productUrl, newOne);
   }
 
   // Update the Product
-  updateProduct(id: number, editProduct: Product): Observable<Product> {
+  updateProduct(id: number, editProduct: Product): Observable<Product> {    
     return this.http.put<Product>(this.updateUrl + id, editProduct);
   }
 

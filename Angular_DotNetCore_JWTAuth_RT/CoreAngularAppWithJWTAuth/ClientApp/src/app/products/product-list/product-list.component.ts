@@ -189,7 +189,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.imageUrl = new FormControl('', [Validators.pattern(validateImageUrl)]);
 
     this.insertForm = this.fb.group({
-
+      'productId': 0,
       'name': this.name,
       'price': this.price,
       'description': this.description,
