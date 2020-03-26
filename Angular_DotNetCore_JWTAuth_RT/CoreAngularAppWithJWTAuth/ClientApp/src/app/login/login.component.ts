@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
     //  this.router.navigate(['/']);
     //  return false;
     // }
-
+    
+    this.acct.logout();
     // Intialize formGroup by using FormBuilder
     this.insertForm = this.fb.group({
       'Username': this.Username,
