@@ -16,6 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { JwtIntercepterService } from './helpers/jwt.intercepter.service';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { JwtIntercepterService } from './helpers/jwt.intercepter.service';
     FetchDataComponent,
     LoginComponent,
     RegisterComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
