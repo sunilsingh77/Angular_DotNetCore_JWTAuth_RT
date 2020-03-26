@@ -214,6 +214,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
         'imageUrl': this._imageUrl,
         'outOfStock': true
       });
+
+    console.log('product.component loaded!')
   }
 
   ngOnDestroy() {
