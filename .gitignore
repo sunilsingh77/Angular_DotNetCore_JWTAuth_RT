@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Angular_DotNetCore_JWTAuth_RT/CoreAngularAppWithJWTAuth/bin/Debug/netcoreapp3.1
+/Angular_DotNetCore_JWTAuth_RT/CoreAngularAppWithJWTAuth/obj
+/Angular_DotNetCore_JWTAuth_RT/.vs/CoreAngularAppWithJWTAuth
