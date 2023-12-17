@@ -7,19 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoreAngularAppWithJWTAuth.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CoreAngularAppWithJWTAuth.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]    
-    [Authorize]
+    //[Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
+        public string LoggedInUserId;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProductsController(ApplicationDBContext context)
+        public ProductsController(ApplicationDBContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
+            //ClaimsIdentity user = (ClaimsIdentity)_httpContextAccessor.HttpContext.User.Identity;
+            //LoggedInUserId = user.FindFirst("UserId").Value.ToString();
         }
 
         // GET: api/Products
@@ -27,6 +33,7 @@ namespace CoreAngularAppWithJWTAuth.Controllers
         [Authorize(Policy = "RequiredLoggedIn")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
+            var username = _httpContextAccessor.HttpContext.User.Identity.Name;
             return await _context.Products.ToListAsync();
         }
 

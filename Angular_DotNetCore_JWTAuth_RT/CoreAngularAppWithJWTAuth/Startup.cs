@@ -4,9 +4,11 @@ using CoreAngularAppWithJWTAuth.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IO.Compression;
 using System.Text;
 
 namespace CoreAngularAppWithJWTAuth
@@ -32,7 +35,13 @@ namespace CoreAngularAppWithJWTAuth
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddControllersWithViews();
-            
+
+            services.AddSwaggerDocument(o => o.Title = "Product Sample API");
+            services.AddMemoryCache();
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+            services.AddResponseCompression(options => options.Providers.Add<GzipCompressionProvider>());
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             // Email Sending Service
             services.AddSendGridEmailSender();
 
